@@ -7,8 +7,26 @@
         mc:Ignorable="d"
         Title="MainWindow" Height="450" Width="800">
     <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="100"/>
+            <RowDefinition Height="100"/>
+            <RowDefinition Height="100"/>
+            <RowDefinition Height="100"/>
+        </Grid.RowDefinitions>
         <Button Height="70" Width="200" x:Name="powerShellButton"
                 Content="Execute Power Shell"
                 Click="PowerShellButton_Click"/>
+
+        <Button Height="70" Width="200" x:Name="pubPublish"
+                Content="Pub Publish" Grid.Row="1"
+                Click="PubPublish_Click"/>
+        
+        <Button Height="70" Width="200" x:Name="generateAPK"
+                Content="Pub Publish" Grid.Row="2"
+                Click="GenerateAPK_Click"/>
+
+        <Button Height="70" Width="200" x:Name="webHost"
+                Content="Pub Publish" Grid.Row="3"
+                Click="WebHost_Click"/>
     </Grid>
 </Window>
