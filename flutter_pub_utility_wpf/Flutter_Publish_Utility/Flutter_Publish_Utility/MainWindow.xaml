@@ -22,11 +22,11 @@
                 Click="PubPublish_Click"/>
         
         <Button Height="70" Width="200" x:Name="generateAPK"
-                Content="Pub Publish" Grid.Row="2"
+                Content="Genearate APK" Grid.Row="2"
                 Click="GenerateAPK_Click"/>
 
         <Button Height="70" Width="200" x:Name="webHost"
-                Content="Pub Publish" Grid.Row="3"
+                Content="Web Host" Grid.Row="3"
                 Click="WebHost_Click"/>
     </Grid>
 </Window>
