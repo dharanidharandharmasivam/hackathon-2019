@@ -45,5 +45,25 @@ namespace Flutter_Publish_Utility
             Restoreprocess.Start();
             Restoreprocess.WaitForExit();
         }
+
+        private void PubPublish_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void Button_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void GenerateAPK_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void WebHost_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
     }
 }
