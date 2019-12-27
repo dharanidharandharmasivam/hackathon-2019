@@ -41,6 +41,9 @@
     <Reference Include="Syncfusion.SfTextInputLayout.WPF, Version=17.4460.0.40, Culture=neutral, PublicKeyToken=3d67ed1f87d44c89, processorArchitecture=MSIL">
       <HintPath>..\packages\Syncfusion.SfTextInputLayout.WPF.17.4.0.40\lib\net46\Syncfusion.SfTextInputLayout.WPF.dll</HintPath>
     </Reference>
+    <Reference Include="Syncfusion.Shared.WPF, Version=17.4460.0.40, Culture=neutral, PublicKeyToken=3d67ed1f87d44c89, processorArchitecture=MSIL">
+      <HintPath>..\packages\Syncfusion.Shared.WPF.17.4.0.40\lib\net46\Syncfusion.Shared.WPF.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Data" />
     <Reference Include="System.Windows.Forms" />
@@ -62,9 +65,22 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="APKGeneration.xaml.cs">
+      <DependentUpon>APKGeneration.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Pub_publish.xaml.cs">
+      <DependentUpon>Pub_publish.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="ScreenCompare.xaml.cs">
+      <DependentUpon>ScreenCompare.xaml</DependentUpon>
+    </Compile>
     <Compile Include="UtilityPage.xaml.cs">
       <DependentUpon>UtilityPage.xaml</DependentUpon>
     </Compile>
+    <Page Include="APKGeneration.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="LoginPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -84,6 +100,14 @@
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+    <Page Include="Pub_publish.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="ScreenCompare.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="UtilityPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
