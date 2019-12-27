@@ -25,6 +25,11 @@ namespace Flutter_Publish_Utility
         public UtilityPage()
         {
             InitializeComponent();
+
+            Frame tabFrame = new Frame();
+            Pub_publish page1 = new Pub_publish();
+            tabFrame.Content = page1;
+            apk_tab.Content = tabFrame;
         }
 
         private void PowerShellButton_Click(object sender, RoutedEventArgs e)
