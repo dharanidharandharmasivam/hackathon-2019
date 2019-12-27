@@ -4,11 +4,13 @@ using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Text;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Data;
 using System.Windows.Documents;
+using System.Windows.Forms;
 using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
@@ -32,13 +34,11 @@ namespace Flutter_Publish_Utility
             apk_tab.Content = tabFrame;
         }
 
-        private void PowerShellButton_Click(object sender, RoutedEventArgs e)
-        {
-            string directory = @"D:\src\classStruct\flutter_gauges\testbed_samples\gardient_pointer";
-            string command = "flutter --version";
-            RunPowerShell(directory, command);
-        }
-
+        /// <summary>
+        /// Method to run the power shell
+        /// </summary>
+        /// <param name="location">Project Directory</param>
+        /// <param name="command">Flutter command</param>
         private void RunPowerShell(string location, string command)
         {
             var Restoreprocess = new Process();
@@ -48,29 +48,51 @@ namespace Flutter_Publish_Utility
             Restoreprocess.StartInfo.UseShellExecute = false;
             Restoreprocess.StartInfo.WindowStyle = ProcessWindowStyle.Hidden;
             Restoreprocess.StartInfo.Verb = "runas";
+            
             Restoreprocess.Start();
             Restoreprocess.WaitForExit(60000);
+            System.Windows.MessageBox.Show("Done");
         }
 
+        /// <summary>
+        /// Method to generate .ipa
+        /// </summary>
+        /// <param name="sender">The button</param>
+        /// <param name="e">Routed event args</param>
         private void GenerateIPK_Click(object sender, RoutedEventArgs e)
         {
 
         }
 
     
-
+        /// <summary>
+        /// Method to generate .apk
+        /// </summary>
+        /// <param name="sender">The button</param>
+        /// <param name="e">Routed event args</param>
         private void GenerateAPK_Click(object sender, RoutedEventArgs e)
         {
-            string directory = @"D:\src\classStruct\flutter_gauges\testbed_samples\gardient_pointer";
-            string command = "flutter analyze";
-            executePowershell(directory, command);
+            string directory = getProjectDirectory();
+            if (!string.IsNullOrEmpty(directory))
+            {
+                string command = "flutter analyze";
+                executePowershell(directory, command);
+            }      
         }
 
+        /// <summary>
+        /// Method to host the project in web
+        /// </summary>
+        /// <param name="sender">The button</param>
+        /// <param name="e">Routed event args</param>
         private void WebHost_Click(object sender, RoutedEventArgs e)
         {
-            string directory = @"D:\src\classStruct\flutter_gauges\testbed_samples\gardient_pointer";
-            string command = "flutter packages get&&flutter channel beta&&flutter config --enable-web&&flutter config --enable-web&&flutter create .&&flutter run -d chrome";
-            RunPowerShell(directory, command);
+            string directory = getProjectDirectory();
+            if (!string.IsNullOrEmpty(directory))
+            {
+                string command = "flutter packages get&&flutter channel beta&&flutter config --enable-web&&flutter config --enable-web&&flutter create .&&flutter run -d chrome";
+                RunPowerShell(directory, command);
+            }            
         }
 
         private void executePowershell(string location, string command)
@@ -104,20 +126,20 @@ namespace Flutter_Publish_Utility
            
             if (output.Contains("No issues found!"))
             {
-                MessageBox.Show("Flutter Analyzed successfully");
+                System.Windows.MessageBox.Show("Flutter Analyzed successfully");
             }
             else
             {
                 int index = output.IndexOf("issues found");
                 if (index == -1)
                 {
-                    MessageBox.Show("issues found");
+                    System.Windows.MessageBox.Show("issues found");
                     return;
                 }
 
 
 
-                MessageBox.Show(output[index - 3] + " issues found");
+                System.Windows.MessageBox.Show(output[index - 3] + " issues found");
             }
 
 
@@ -144,11 +166,9 @@ namespace Flutter_Publish_Utility
             }
             else
             {
-                MessageBox.Show("Apk generation failed");
+                System.Windows.MessageBox.Show("Apk generation failed");
             }
         }
-
-
 
         private void sendAttachment(string attachment)
         {
@@ -159,22 +179,82 @@ namespace Flutter_Publish_Utility
             Microsoft.Office.Interop.Outlook.Attachment attachement = message.Attachments.Add(attachment);
             message.Body = "Test Mail";
             message.Send();
-            MessageBox.Show("Message Sent to " + to);
+            System.Windows.MessageBox.Show("Message Sent to " + to);
         }
+
+
 
         private void PubPublish_Click(object sender, RoutedEventArgs e)
         {
             bool isWarningsError = false;
+            string location = getProjectDirectory();
             if (!isWarningsError)
             {
                 string[] deletingDirectories = { "test", "build", "images" };
-                Remove_Directories(deletingDirectories, @"D:\Hackathon-2019\Dependencies\flutter-charts\flutter_charts\syncfusion_flutter_charts");
-                Remove_TestScript_Reference(@"D:\Hackathon-2019\Dependencies\flutter-charts\flutter_charts\syncfusion_flutter_charts");
-                //string directory = @"D:\Hackathon-2019\Dependencies\flutter-charts\flutter_charts\syncfusion_flutter_charts";
-                //string command = "dartfmt -w lib";
-                //RunPowerShell(directory, command);
+                string[] fileExistList = { "analysis_options.yaml", "CHANGELOG.md", "pubspec.yaml", "README.md", "syncfusion_flutter_charts.iml" };
+                string[] folderExistList = { "example", "lib" };
+                if (!string.IsNullOrEmpty(location))
+                {
+                    Remove_Directories(deletingDirectories, location);
+                    Remove_TestScript_Reference(location);
+                    bool isFoldersExist = Folder_Exist_Check(folderExistList, location);
+                    bool isFilesExist = File_Exist_Check(fileExistList, location);
+                    bool isProperPub = Pubspec_Check(location, "17.4.40");
+                    string command = "dartfmt -w lib";
+                    RunPowerShell(location, command);
+                }           
             }
+        }
 
+        private bool Pubspec_Check(string location, string version)
+        {
+            bool isPub = false;
+            string[] controlSeperator = new string[] { "syncfusion_flutter_" };
+            string pubSpec = File.ReadAllText(location + @"\pubspec.yaml", Encoding.UTF8);
+            MatchCollection splittedTextCollection = Regex.Matches(pubSpec, @"name: (.*)\s*description: (.*)\sversion: (.*)");
+            string[] nameList = splittedTextCollection[0].Groups[1].Value.ToString().Split(controlSeperator, StringSplitOptions.None);
+            int descriptionLength = splittedTextCollection[0].Groups[2].Value.ToString().Length;
+            bool isVersion = version == splittedTextCollection[0].Groups[3].Value.ToString().Trim() ? true : false;
+            if (nameList[0] != "") System.Windows.MessageBox.Show("Package name doesn't contain the syncfusion_flutter_ word");
+            if (descriptionLength < 60 || descriptionLength > 180) System.Windows.MessageBox.Show("Constrol description in pubspec length must be greater than 60 and less than 180");
+            if (!isVersion) System.Windows.MessageBox.Show("Version doesn't match");
+            if (nameList[0] == "" && (descriptionLength > 60 && descriptionLength < 180) && isVersion) isPub = true;
+            else isPub = false;
+            return isPub;
+        }
+
+
+        private bool File_Exist_Check(string[] filesList, string location)
+        {
+            bool isFilesExist = false;
+            for (int k = 0; k < filesList.Length; k++)
+            {
+                if (File.Exists(location + @"\" + filesList[k])) isFilesExist = true;
+                else
+                {
+                    isFilesExist = false;
+                    System.Windows.MessageBox.Show(filesList[k] + " file doesn't exist");
+                    break;
+                }
+            }
+            return isFilesExist;
+        }
+
+
+        private bool Folder_Exist_Check(string[] foldersList, string location)
+        {
+            bool isFoldersExist = false;
+            for (int k = 0; k < foldersList.Length; k++)
+            {
+                if (Directory.Exists(location + @"\" + foldersList[k])) isFoldersExist = true;
+                else
+                {
+                    isFoldersExist = false;
+                    System.Windows.MessageBox.Show(foldersList[k] + " folder doesn't exist");
+                    break;
+                }
+            }
+            return isFoldersExist;
         }
         private void Remove_Directories(string[] deleteDirectories, string location)
         {
@@ -190,17 +270,69 @@ namespace Flutter_Publish_Utility
                 }
             }
         }
-
-
-
         private void Remove_TestScript_Reference(string location)
         {
-            string[] locationSeperator = new string[] { "syncfusion_flutter_" };
-            string[] locationList = location.Split(locationSeperator, StringSplitOptions.None);
+            string[] controlSeperator = new string[] { "syncfusion_flutter_" };
+            string pubSpec = File.ReadAllText(location + @"\pubspec.yaml", Encoding.UTF8);
+            MatchCollection splittedTextCollection = Regex.Matches(pubSpec, @"name: (.*)\s*description: (.*)\sversion: (.*)");
+            string controlNameList = splittedTextCollection[0].Groups[0].Value.ToString();
+            string[] locationList = splittedTextCollection[0].Groups[1].Value.ToString().Split(controlSeperator, StringSplitOptions.None);
             string controlName = locationList[locationList.Length - 1].ToString().Trim();
             string scriptReferenceText = File.ReadAllText(location + @"\lib\" + controlName + ".dart", Encoding.UTF8);
-            scriptReferenceText = scriptReferenceText.Remove(scriptReferenceText.IndexOf("// export test scripts"));
-            File.WriteAllText(location + @"\lib\" + controlName + ".dart", scriptReferenceText);
+
+            if (scriptReferenceText.IndexOf("// export test scripts") > 0)
+            {
+                scriptReferenceText = scriptReferenceText.Remove(scriptReferenceText.IndexOf("// export test scripts"));
+                File.WriteAllText(location + @"\lib\" + controlName + ".dart", scriptReferenceText);
+            }
+        }
+
+
+
+
+
+
+        /// <summary>
+        /// To get desired project directory
+        /// </summary>
+        /// <returns></returns>
+        private string getProjectDirectory()
+        {
+            using (var folderPath = new FolderBrowserDialog())
+            {
+                System.Windows.Forms.DialogResult result = folderPath.ShowDialog();
+
+                if (result == System.Windows.Forms.DialogResult.OK && !string.IsNullOrWhiteSpace(folderPath.SelectedPath))
+                {
+                    return folderPath.SelectedPath;
+                }
+                else
+                {
+                    return string.Empty;
+                }
+            }
+        }
+
+        private void GitClone_Click(object sender, RoutedEventArgs e)
+        {
+            string currentDirectory = getProjectDirectory();
+            if (!string.IsNullOrEmpty(currentDirectory))
+            {
+                string controlName = "chart";
+                string branch = "development";
+                var Restoreprocess = new System.Diagnostics.Process();
+                Restoreprocess.StartInfo.FileName = @"git";
+                Restoreprocess.StartInfo.WorkingDirectory = currentDirectory;
+                Restoreprocess.StartInfo.Arguments = @"clone " + "https://gitlab.syncfusion.com/essential-studio/flutter-" + controlName.ToString() + " -b " + branch.ToString();
+          
+                Restoreprocess.StartInfo.UseShellExecute = false;
+                Restoreprocess.StartInfo.WindowStyle = ProcessWindowStyle.Hidden;
+                Restoreprocess.StartInfo.Verb = "runas";
+              
+                Restoreprocess.Start();
+                Restoreprocess.WaitForExit();
+            }
+          
         }
     }
 }

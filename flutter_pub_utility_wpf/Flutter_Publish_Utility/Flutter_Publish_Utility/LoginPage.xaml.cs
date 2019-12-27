@@ -45,7 +45,7 @@ namespace Flutter_Publish_Utility
                     if (passwordText.Text == user.Password)
                     {
                         currentUser = user;
-                    
+                        nameLayout.HasError = false;
                         NavigationWindow window = new NavigationWindow();
                         window.Source = new Uri("UtilityPage.xaml", UriKind.Relative);
                         window.Show();
@@ -54,7 +54,7 @@ namespace Flutter_Publish_Utility
                     }
                     else
                     {
-                        MessageBox.Show("Invalid password");
+                        nameLayout.HasError = true;
                     }
                     break;
 
@@ -62,40 +62,66 @@ namespace Flutter_Publish_Utility
             }
             if (currentUser == null)
             {
-                MessageBox.Show("Enter valid user");
+                nameLayout.HasError = true;
+                passwordLayout.HasError = true;
+            }
+            else
+            {
+                passwordLayout.HasError = false;
             }
         }
 
      
         private void LoginText_GotMouseCapture(object sender, MouseEventArgs e)
         {
-            if (loginText.Text == "Username")
+            if (loginText.Text == "")
             {
-                loginText.Text = "";
+                nameLayout.HasError = false;
             }
         }
 
         private void PasswordText_GotMouseCapture(object sender, MouseEventArgs e)
         {
-            if (passwordText.Text == "Password")
+            if (passwordText.Text == "")
             {
-                passwordText.Text = "";
+                passwordLayout.HasError = false;
             }
         }
 
         private void LoginText_LostFocus(object sender, RoutedEventArgs e)
         {
-            if (loginText.Text == "")
+            var hasError = false;
+            foreach(var user in viewModel.Userlists)
             {
-                loginText.Text = "Username";
+                if( user.Username == loginText.Text)
+                {
+                    hasError = false;
+                    break;
+                }
             }
+
+            if(!string.IsNullOrEmpty(loginText.Text) && hasError)
+            {
+                nameLayout.HasError = hasError;
+            }
+           
         }
 
         private void PasswordText_LostFocus(object sender, RoutedEventArgs e)
         {
-            if (passwordText.Text == "")
+            var hasError = false;
+            foreach (var user in viewModel.Userlists)
             {
-                passwordText.Text = "Password";
+                if (!string.IsNullOrEmpty(passwordText.Text) && user.Username == passwordText.Text)
+                {
+                    hasError = false;
+                    break;
+                }
+            }
+
+            if (!string.IsNullOrEmpty(passwordText.Text) && hasError)
+            {
+               passwordLayout.HasError = hasError;
             }
         }
     }
