@@ -8,7 +8,7 @@
       d:DesignHeight="450" d:DesignWidth="800"
       Title="LoginPage">
 
-    <Page.Resources>
+    <!--<Page.Resources>
         <Style x:Key="RoundedButtonStyle" TargetType="{x:Type Button}">
             <Setter Property="Template">
                 <Setter.Value>
@@ -20,7 +20,7 @@
                 </Setter.Value>
             </Setter>
         </Style>
-    </Page.Resources>
+    </Page.Resources>-->
 
     
    
@@ -58,6 +58,7 @@
                                 <Image Height="50" Width="50" Source="Images\Login.png"/>
                                 <TextBox Text="Username" Grid.Column="1" Background="Transparent"
                                          x:Name="loginText" HorizontalContentAlignment="Left"
+                                         Width="200"
                                      GotMouseCapture="LoginText_GotMouseCapture" LostFocus="LoginText_LostFocus"
                                                        HorizontalAlignment="Left" VerticalAlignment="Center"
                                                        FontSize="20" Foreground="White"/>
@@ -75,6 +76,7 @@
                                 <Image Height="50" Width="50" Source="Images\Lock.png"/>
                                 <TextBox Text="Password" Grid.Column="1" Background="Transparent"
                                          GotMouseCapture="PasswordText_GotMouseCapture" 
+                                         Width="200"
                                          LostFocus="PasswordText_LostFocus"
                                          x:Name="passwordText" HorizontalContentAlignment="Left"
                                                        HorizontalAlignment="Left" VerticalAlignment="Center"
