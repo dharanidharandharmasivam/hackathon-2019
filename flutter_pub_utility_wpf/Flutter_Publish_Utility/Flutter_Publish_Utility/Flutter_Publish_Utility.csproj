@@ -61,12 +61,22 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="APKGeneration.xaml.cs">
+      <DependentUpon>APKGeneration.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Pub_publish.xaml.cs">
       <DependentUpon>Pub_publish.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="ScreenCompare.xaml.cs">
+      <DependentUpon>ScreenCompare.xaml</DependentUpon>
     </Compile>
     <Compile Include="UtilityPage.xaml.cs">
       <DependentUpon>UtilityPage.xaml</DependentUpon>
     </Compile>
+    <Page Include="APKGeneration.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="LoginPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -87,6 +97,10 @@
       <SubType>Code</SubType>
     </Compile>
     <Page Include="Pub_publish.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="ScreenCompare.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
