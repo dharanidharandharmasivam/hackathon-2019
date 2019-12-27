@@ -32,6 +32,12 @@ namespace Flutter_Publish_Utility
             Pub_publish page1 = new Pub_publish();
             tabFrame.Content = page1;
             apk_tab.Content = tabFrame;
+
+            Frame tabFrame1 = new Frame();
+            APKGeneration page2 = new APKGeneration();
+            tabFrame1.Content = page2;
+            GenerateAPK.Content = tabFrame1;
+            
         }
 
         /// <summary>
