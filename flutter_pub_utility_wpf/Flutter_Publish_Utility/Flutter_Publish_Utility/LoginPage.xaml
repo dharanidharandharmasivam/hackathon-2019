@@ -5,7 +5,7 @@
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
       xmlns:inputLayout="clr-namespace:Syncfusion.UI.Xaml.TextInputLayout;assembly=Syncfusion.SfTextInputLayout.WPF"
       xmlns:local="clr-namespace:Flutter_Publish_Utility"
-      mc:Ignorable="d"     KeepAlive="True"
+      mc:Ignorable="d"
       d:DesignHeight="450" d:DesignWidth="800"
       Title="LoginPage">
     <Border x:Name="border">
