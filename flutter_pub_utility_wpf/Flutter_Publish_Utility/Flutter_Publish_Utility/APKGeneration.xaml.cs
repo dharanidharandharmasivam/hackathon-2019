@@ -22,6 +22,7 @@ namespace Flutter_Publish_Utility
     /// </summary>
     public partial class APKGeneration : Page
     {
+        MailWindow window;
         public APKGeneration()
         {
             InitializeComponent();
@@ -30,7 +31,7 @@ namespace Flutter_Publish_Utility
         {
             string directory = @"D:\projects\funnel3test\flutter-charts\flutter_charts\flutter_charts_testbed";
             string command = "flutter analyze";
-                      executePowershell(directory, command, (sender as Button).Content == "Generate App Bundle");
+            executePowershell(directory, command, (sender as Button).Content == "Generate App Bundle");
         }
 
 
@@ -85,6 +86,7 @@ namespace Flutter_Publish_Utility
                 Restoreprocess.WaitForExit();
                 if (output.Contains(@"build\app\outputs\apk\release\"))
                 {
+                    MessageBox.Show("Apk generated successfully");
                     sendAttachment(location + @"\build\app\outputs\apk\release\app-release.apk");
                 }
                 else
@@ -107,7 +109,14 @@ namespace Flutter_Publish_Utility
 
         private void sendAttachment(string attachment)
         {
-            string to = "dharanidharan.dharmasivam@syncfusion.com";
+            window = new MailWindow();
+            string to = "";
+            window.ShowDialog();
+            to = window.Email;
+            if (to == "")
+            {
+                return;
+            }
             Microsoft.Office.Interop.Outlook.MailItem message = new Microsoft.Office.Interop.Outlook.Application().CreateItem(Microsoft.Office.Interop.Outlook.OlItemType.olMailItem);
             message.To = to;
             message.Subject = "Testing";
