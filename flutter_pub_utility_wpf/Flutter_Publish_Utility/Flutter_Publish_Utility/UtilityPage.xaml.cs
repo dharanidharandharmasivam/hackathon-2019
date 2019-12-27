@@ -43,8 +43,10 @@ namespace Flutter_Publish_Utility
             Restoreprocess.StartInfo.UseShellExecute = false;
             Restoreprocess.StartInfo.WindowStyle = ProcessWindowStyle.Hidden;
             Restoreprocess.StartInfo.Verb = "runas";
+            
             Restoreprocess.Start();
-            Restoreprocess.WaitForExit();
+            Restoreprocess.WaitForExit(60000);
+            System.Windows.MessageBox.Show("Done");
         }
 
         /// <summary>
@@ -272,8 +274,12 @@ namespace Flutter_Publish_Utility
             string[] locationList = splittedTextCollection[0].Groups[1].Value.ToString().Split(controlSeperator, StringSplitOptions.None);
             string controlName = locationList[locationList.Length - 1].ToString().Trim();
             string scriptReferenceText = File.ReadAllText(location + @"\lib\" + controlName + ".dart", Encoding.UTF8);
-            scriptReferenceText = scriptReferenceText.Remove(scriptReferenceText.IndexOf("// export test scripts"));
-            File.WriteAllText(location + @"\lib\" + controlName + ".dart", scriptReferenceText);
+
+            if (scriptReferenceText.IndexOf("// export test scripts") > 0)
+            {
+                scriptReferenceText = scriptReferenceText.Remove(scriptReferenceText.IndexOf("// export test scripts"));
+                File.WriteAllText(location + @"\lib\" + controlName + ".dart", scriptReferenceText);
+            }
         }
 
 
@@ -300,6 +306,28 @@ namespace Flutter_Publish_Utility
                     return string.Empty;
                 }
             }
+        }
+
+        private void GitClone_Click(object sender, RoutedEventArgs e)
+        {
+            string currentDirectory = getProjectDirectory();
+            if (!string.IsNullOrEmpty(currentDirectory))
+            {
+                string controlName = "chart";
+                string branch = "development";
+                var Restoreprocess = new System.Diagnostics.Process();
+                Restoreprocess.StartInfo.FileName = @"git";
+                Restoreprocess.StartInfo.WorkingDirectory = currentDirectory;
+                Restoreprocess.StartInfo.Arguments = @"clone " + "https://gitlab.syncfusion.com/essential-studio/flutter-" + controlName.ToString() + " -b " + branch.ToString();
+          
+                Restoreprocess.StartInfo.UseShellExecute = false;
+                Restoreprocess.StartInfo.WindowStyle = ProcessWindowStyle.Hidden;
+                Restoreprocess.StartInfo.Verb = "runas";
+              
+                Restoreprocess.Start();
+                Restoreprocess.WaitForExit();
+            }
+          
         }
     }
 }
