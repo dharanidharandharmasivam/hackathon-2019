@@ -7,22 +7,32 @@
       mc:Ignorable="d"
       d:DesignHeight="800" d:DesignWidth="800">
 
-    <Border BorderBrush="Black" BorderThickness="5" Margin="15,15,15,15">
+    <Border BorderBrush="White" BorderThickness="5" Margin="15,15,15,15">        
+           
 
-        <Grid>
+            <Grid>
+            <Grid.Background>
+                <LinearGradientBrush StartPoint="0.0,0.0" EndPoint="1,1">
+                    <GradientStop Color="#391e42" Offset="0"/>
+                    <GradientStop Color="#7b2299" Offset="0.367"/>
+                    <GradientStop Color="#391e42" Offset="0.867"/>
+                </LinearGradientBrush>
+            </Grid.Background>
+
+                
             <Grid.RowDefinitions>
                 <RowDefinition Height="0.1*"/>
                 <RowDefinition Height="*"/>
             </Grid.RowDefinitions>
-            <TextBlock   Text="Flutter Utility Tool" 
+            <TextBlock   Text="Flutter Utility Tool" Foreground="White"
               HorizontalAlignment="Center" VerticalAlignment="Center"
                  FontSize="30" FontWeight="Bold" FontFamily="Lucida Bright" />
             <TabControl Grid.Row="1">
                 <TabItem Header="Pub Publish" Width="150" x:Name="apk_tab"/>
                 <TabItem Header="Generate APK" Width="150" x:Name="GenerateAPK"/>
-                <TabItem Header="Screen Compare" Width="150"/>
-                <TabItem Header="Web Host" Width="150"/>
-                <TabItem Header="Generate IOS" Width="150"/>
+                <TabItem Header="Screen Compare" Width="150" x:Name="screen_compare"/>
+                <TabItem Header="Web Host" Width="150" x:Name="web_host"/>
+                <TabItem Header="Generate IOS" Width="150" x:Name="generate_ios"/>
             </TabControl>
         </Grid>
     </Border>
