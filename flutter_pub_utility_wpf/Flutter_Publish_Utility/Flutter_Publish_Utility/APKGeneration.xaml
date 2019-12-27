@@ -81,8 +81,8 @@
                 <ColumnDefinition/>
             </Grid.ColumnDefinitions>
 
-            <Button Content="Generate APK" HorizontalAlignment="Center" VerticalAlignment="Center" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Width="150" Height="40"/>
-            <Button Grid.Column="1" Content="Generate App Bundle" HorizontalAlignment="Center" VerticalAlignment="Center" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Width="150" Height="40"/>
+            <Button Content="Generate APK" HorizontalAlignment="Center" VerticalAlignment="Center" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Width="150" Height="40" Click="GenerateAPK_Click"/>
+            <Button Grid.Column="1" Content="Generate App Bundle" HorizontalAlignment="Center" VerticalAlignment="Center" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Width="150" Height="40" Click="GenerateAPK_Click"/>
         </Grid>
     </Grid>
 </Page>
