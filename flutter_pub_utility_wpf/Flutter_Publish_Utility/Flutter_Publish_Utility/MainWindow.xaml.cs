@@ -26,24 +26,6 @@ namespace Flutter_Publish_Utility
             InitializeComponent();
         }
 
-        private void PowerShellButton_Click(object sender, RoutedEventArgs e)
-        {
-            string directory = @"D:\src\flutterSB_MR\flutter_examples\flutter_examples";
-            string command = "flutter --version";
-            RunPowerShell(directory, command);
-        }
-
-        private void RunPowerShell(string location, string command)
-        {
-            var Restoreprocess = new System.Diagnostics.Process();
-            Restoreprocess.StartInfo.FileName = "cmd.exe";
-            Restoreprocess.StartInfo.WorkingDirectory = location;
-            Restoreprocess.StartInfo.Arguments = "/c " + command;
-            Restoreprocess.StartInfo.UseShellExecute = false;
-            Restoreprocess.StartInfo.WindowStyle = ProcessWindowStyle.Hidden;
-            Restoreprocess.StartInfo.Verb = "runas";
-            Restoreprocess.Start();
-            Restoreprocess.WaitForExit();
-        }
+      
     }
 }
