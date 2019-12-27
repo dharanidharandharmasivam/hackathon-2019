@@ -28,16 +28,31 @@ namespace Flutter_Publish_Utility
         {
             InitializeComponent();
 
-            Frame tabFrame = new Frame();
-            Pub_publish page1 = new Pub_publish();
-            tabFrame.Content = page1;
-            apk_tab.Content = tabFrame;
-
             Frame tabFrame1 = new Frame();
+            Pub_publish page1 = new Pub_publish();
+            tabFrame1.Content = page1;
+            apk_tab.Content = tabFrame1;
+
+            Frame tabFrame2 = new Frame();
             APKGeneration page2 = new APKGeneration();
-            tabFrame1.Content = page2;
-            GenerateAPK.Content = tabFrame1;
-            
+            tabFrame2.Content = page2;
+            GenerateAPK.Content = tabFrame2; 
+
+            Frame tabFrame3 = new Frame();
+            ScreenCompare page3 = new ScreenCompare();
+            tabFrame3.Content = page3;
+            screen_compare.Content = tabFrame3;
+
+            Frame tabFrame4 = new Frame();
+            WebHost page4 = new WebHost();
+            tabFrame4.Content = page4;
+            web_host.Content = tabFrame4;
+
+            Frame tabFrame5 = new Frame();
+            GenerateIOS page5 = new GenerateIOS();
+            tabFrame5.Content = page5;
+            generate_ios.Content = tabFrame5;
+
         }
 
         /// <summary>

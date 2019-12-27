@@ -25,10 +25,10 @@ namespace Flutter_Publish_Utility
         {
             InitializeComponent();
             controlList = new List<string>();
-            controlList.Add("A");
-            controlList.Add("k");
-            controlList.Add("s");
-            controlList.Add("c");
+            controlList.Add("Chart");
+            controlList.Add("Gauge");
+            controlList.Add("Calendar");
+            controlList.Add("Core");
             combobox.ItemsSource = controlList;
             combobox.DefaultText = "Select the controls";
         }

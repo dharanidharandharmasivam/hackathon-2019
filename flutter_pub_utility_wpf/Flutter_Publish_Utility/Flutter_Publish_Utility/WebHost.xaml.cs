@@ -16,26 +16,13 @@ using System.Windows.Shapes;
 namespace Flutter_Publish_Utility
 {
     /// <summary>
-    /// Interaction logic for ScreenCompare.xaml
+    /// Interaction logic for WebHost.xaml
     /// </summary>
-    public partial class ScreenCompare : Page
+    public partial class WebHost : Page
     {
-        public ScreenCompare()
+        public WebHost()
         {
             InitializeComponent();
-            ComboBox1.SelectedIndex = 0;
-        }
-
-        private void ComboBox1_SelectionChanged(object sender, SelectionChangedEventArgs e)
-        {
-            if((sender as ComboBox).SelectedIndex == 0)
-            {
-                screen_compare.Content = "Take Screenshot";
-            }
-            else
-            {
-                screen_compare.Content = "Compare";
-            }
         }
     }
 }

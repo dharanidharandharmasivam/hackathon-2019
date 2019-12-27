@@ -10,6 +10,9 @@
       xmlns:syncfusion="http://schemas.syncfusion.com/wpf">
 
     <Grid>
+        <Grid.Background>
+            <ImageBrush ImageSource="Images\background_img.jpg" Stretch="UniformToFill"/>
+        </Grid.Background>
         <Grid.RowDefinitions>
             <RowDefinition/>
             <RowDefinition/>
@@ -27,7 +30,7 @@
                     <ColumnDefinition/>
                     <ColumnDefinition/>
                 </Grid.ColumnDefinitions>
-                <Label Content="Controls" VerticalAlignment="Center" HorizontalAlignment="Center" FontSize="20"/>
+                <Label Foreground="White" Content="Controls" VerticalAlignment="Center" HorizontalAlignment="Center" FontSize="20"/>
                 <syncfusion:ComboBoxAdv DefaultText="Select the controls" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Width="150" Height="40" Grid.Column="1" AllowMultiSelect="True" x:Name="combobox"/>
             </Grid>
         </Grid>
@@ -44,7 +47,7 @@
                     <ColumnDefinition/>
                 </Grid.ColumnDefinitions>
 
-                <Label Grid.Column="0" Content="Branch" VerticalAlignment="Center" HorizontalAlignment="Center" FontSize="20"/>
+                <Label Foreground="White" Grid.Column="0" Content="Branch" VerticalAlignment="Center" HorizontalAlignment="Center" FontSize="20"/>
                 <ComboBox Grid.Column="1" x:Name="branchComboBox" HorizontalAlignment="Center" VerticalAlignment="Center" Width="150" Height="40">
                     <ComboBoxItem Content="Development"></ComboBoxItem>
                     <ComboBoxItem Content="Master"></ComboBoxItem>
@@ -57,7 +60,7 @@
                     <ColumnDefinition/>
                 </Grid.ColumnDefinitions>
 
-                <Label Grid.Column="0" Content="Version" VerticalAlignment="Center" HorizontalAlignment="Center" FontSize="20"/>
+                <Label Grid.Column="0" Foreground="White" Content="Version" VerticalAlignment="Center" HorizontalAlignment="Center" FontSize="20"/>
                 <ComboBox Grid.Column="1" x:Name="versionComboBox" HorizontalAlignment="Center" VerticalAlignment="Center" Width="150" Height="40">
                     <ComboBoxItem Content="Development"></ComboBoxItem>
                     <ComboBoxItem Content="Master"></ComboBoxItem>
@@ -71,8 +74,20 @@
                 <ColumnDefinition/>
             </Grid.ColumnDefinitions>
 
-            <Button Content="Git Clone" HorizontalAlignment="Center" VerticalAlignment="Center" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Width="150" Height="40"/>
-            <Button Grid.Column="1" Content="Browse" HorizontalAlignment="Center" VerticalAlignment="Center" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Width="150" Height="40"/>
+            <Button Content="Git Clone" HorizontalAlignment="Center" VerticalAlignment="Center" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Width="150" Height="40">
+                <Button.Resources>
+                    <Style TargetType="Border">
+                        <Setter Property="CornerRadius" Value="15"/>
+                    </Style>
+                </Button.Resources>
+            </Button>
+            <Button Grid.Column="1" Content="Browse" HorizontalAlignment="Center" VerticalAlignment="Center" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Width="150" Height="40">
+                <Button.Resources>
+                    <Style TargetType="Border">
+                        <Setter Property="CornerRadius" Value="15"/>
+                    </Style>
+                </Button.Resources>
+            </Button>
         </Grid>
 
         <Grid Grid.Row="4">
@@ -81,8 +96,20 @@
                 <ColumnDefinition/>
             </Grid.ColumnDefinitions>
 
-            <Button Content="Generate APK" HorizontalAlignment="Center" VerticalAlignment="Center" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Width="150" Height="40" Click="GenerateAPK_Click"/>
-            <Button Grid.Column="1" Content="Generate App Bundle" HorizontalAlignment="Center" VerticalAlignment="Center" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Width="150" Height="40" Click="GenerateAPK_Click"/>
+            <Button Content="Generate APK" HorizontalAlignment="Center" VerticalAlignment="Center" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Width="150" Height="40" Click="GenerateAPK_Click">
+                <Button.Resources>
+                    <Style TargetType="Border">
+                        <Setter Property="CornerRadius" Value="15"/>
+                    </Style>
+                </Button.Resources>
+            </Button>
+            <Button Grid.Column="1" Content="Generate App Bundle" HorizontalAlignment="Center" VerticalAlignment="Center" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Width="150" Height="40" Click="GenerateAPK_Click">
+                <Button.Resources>
+                    <Style TargetType="Border">
+                        <Setter Property="CornerRadius" Value="15"/>
+                    </Style>
+                </Button.Resources>
+            </Button>
         </Grid>
     </Grid>
 </Page>
