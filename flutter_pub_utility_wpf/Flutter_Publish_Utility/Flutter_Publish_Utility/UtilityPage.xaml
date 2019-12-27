@@ -64,6 +64,7 @@
                             <ColumnDefinition/>
                             <ColumnDefinition/>
                             <ColumnDefinition/>
+                            <ColumnDefinition/>
                         </Grid.ColumnDefinitions>
                         <Button Content="Pub Publish" Click="PubPublish_Click"
                         Style="{StaticResource RoundedButtonStyle}"
@@ -78,6 +79,11 @@
                     Width="153" FontSize="20" Height="55"/>
                         <Button Content="Web Host" Grid.Column="3" 
                         Click="WebHost_Click"
+                          Style="{StaticResource RoundedButtonStyle}"
+                    Width="153" FontSize="20" Height="55"/>
+
+                        <Button Content="Git Clone" Grid.Column="4" 
+                        Click="GitClone_Click" x:Name="gitClone"
                           Style="{StaticResource RoundedButtonStyle}"
                     Width="153" FontSize="20" Height="55"/>
 
